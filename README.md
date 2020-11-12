@@ -23,15 +23,23 @@ pip install --upgrade nvidia-tensorrt
 ## Convertation
 **CURRENTLY IN DEV MODE**
 
-### ONNX Convertation
-1. In `scripts/convertations/onnx_convertation.sh` change:
-    - `model_name` - name of the model to convert
-    - `export_dir` - directory to export converted file (default `data/onnx_export`)
-    - `batch_size` - batch size for converted model (default = 1) 
-2. Run:
+
+
+### ONNX Convertation with Python
+
+1. Run:
 ```
-    bash scripts/convertations/onnx_convertation.sh
+    python opti_models/convertations/cvt_onnx.py --model_name MODEL_NAME --export_dir EXPORT_DIR --is_torchivision IS_TORCHVISION --ckpt_path CKPT_PATH --batch_size BATCH_SIZE --in_size IN_SIZE --num_classes NUM_CLASSES    
 ```
+In order to convert ResNet18 with ImageNet pretraning run:
+```
+    python opti_models/convertations/cvt_onnx.py --model_name 'resnet18' --export_dir 'data/onnx_export' --is_torchivision True --batch_size 1 --in_size 224 224
+```
+In order to convert you own ResNet18 torchvision model with custom weights run:
+```
+    python opti_models/convertations/cvt_onnx.py --model_name 'resnet18' --export_dir 'data/onnx_export' --is_torchivision True --batch_size 1 --in_size 224 224 --ckpt_path CKPT_PATH --num_classes NUM_CLASSES
+```
+
 ### TensorRT Convertation
 1. In `scripts/convertations/tensorrt_convertation.sh` change:
     - `onnx_path` - path to the ONNX file
