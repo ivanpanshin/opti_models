@@ -29,7 +29,7 @@ pip install --upgrade nvidia-tensorrt
 
 1. Run:
 ```
-    python opti_models/convertations/cvt_onnx.py --model_name MODEL_NAME --export_dir EXPORT_DIR --is_torchivision IS_TORCHVISION --ckpt_path CKPT_PATH --batch_size BATCH_SIZE --in_size IN_SIZE --num_classes NUM_CLASSES    
+    python opti_models/convertations/cvt_onnx.py --model_name MODEL_NAME --export_dir EXPORT_ONNX_DIR --is_torchivision IS_TORCHVISION --ckpt_path CKPT_PATH --batch_size BATCH_SIZE --in_size IN_SIZE --num_classes NUM_CLASSES    
 ```
 In order to convert ResNet18 with ImageNet pretraning run:
 ```
@@ -44,7 +44,35 @@ If you're converting your own model with custom NUM_CLASSES, opti models simply 
 
 By default, cvt_onnx.py will generate 2 outputs: regular .onnx file and a simplified version of it, obtained with ONNX simplifier.  
 
-### TensorRT Convertation
+### ONNX Convertation with Bash:
+
+1. In `scripts/convertations/onnx_convertation.sh` change:
+    - `model_name` - name of the model to convert
+    - `export_dir` - directory to export onnx converted file (default `data/onnx_export`)
+    - `is_torchvision` - whether the model is a torchvision model with a changed num_classes in the head (default `False`)
+    - `ckpt_path` - path to checkpoint (default `imagenet` for regular ImageNet pretraining)
+    - `batch_size` - batch size for converted model (default `1`) 
+    - `in_size` - image size (default `224 224`)
+    - `num_classes` - when loading torchvision model, specify the num_classes in the head (default `1000`)
+2. Run:
+```
+    bash scripts/convertations/onnx_convertation.sh
+```
+
+### TensorRT Convertation with Python
+
+1. Run:
+```
+    python opti_models/convertations/cvt_tensorrt.py --onnx_path ONNX_MODEL_PATH --export_dir EXPORT_TRT_DIR --batch_size BATCH_SIZE--in_size IN_SIZE -fp_type PRECISION_TYPE    
+```
+
+In order to convert the previously converted ResNet18 model to TRT run:
+
+```
+    python opti_models/convertations/cvt_tensorrt.py --onnx_path data/onnx_export/resnet18/resnet18_bs-1_res-224x224_simplified.onnx --export_dir data/trt_export --batch_size 1 --in_size 224 224 --fp_type 32
+```
+### TensorRT Convertation with Bash
+
 1. In `scripts/convertations/tensorrt_convertation.sh` change:
     - `onnx_path` - path to the ONNX file
     - `export_dir` - directory to export converted file (default `data/trt_export`)
