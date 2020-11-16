@@ -36,7 +36,7 @@ For instance, in order to convert ResNet18 with ImageNet pretraning run:
 ```
     python opti_models/convertations/cvt_onnx.py --model_name 'resnet18' --export_dir 'data/onnx_export' --is_torchivision True --batch_size 1 --in_size 224 224
 ```
-For instance, In order to convert you own ResNet18 torchvision model with custom weights run:
+For instance, in order to convert you own ResNet18 torchvision model with custom weights run:
 ```
     python opti_models/convertations/cvt_onnx.py --model_name 'resnet18' --export_dir 'data/onnx_export' --is_torchivision True --batch_size 1 --in_size 224 224 --ckpt_path CKPT_PATH --num_classes NUM_CLASSES
 ```
