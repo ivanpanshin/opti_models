@@ -43,7 +43,24 @@ In order to convert you own ResNet18 torchvision model with custom weights run:
 
 If you're converting your own model with custom NUM_CLASSES, opti models simply changes the last FC layer of the network, so that the output dimention is equal to NUM_CLASSES, instead of 1000 in the ImageNet pretraining. If you have a custom head (or the entire model) - check ONNX Convertation with Python [Custom Model]
 
-By default, cvt_onnx.py will generate 2 outputs: regular .onnx file and a simplified version of it, obtained with ONNX simplifier.  
+By default, cvt_onnx.py will generate 2 outputs: regular .onnx file and a simplified version of it, obtained with ONNX simplifier. 
+
+
+### ONNX Convertation with Python [Custom Model]
+
+The script for convertation is cvt_onxx.py. In order to convert something entirely custom, you need to change just 1 line of script. In particular, 92th line:
+
+````
+model = get_model(
+        model_name=model_name,
+        input_shape=input_size[1:],
+        is_torchvision=is_torchvision,
+        num_classes=num_classes,
+        ckpt_path=ckpt_path
+    )
+````
+Change this to `model = GetCustomModel()`, and you're good to go. Note that it's not guaranteed for custom models to successfully convert to ONNX or TRT, since some operations simply are not supported by either ONNX or TRT.   
+
 
 ### ONNX Convertation with Bash:
 
