@@ -32,11 +32,11 @@ pip install --upgrade nvidia-tensorrt
 ```
     python opti_models/convertations/cvt_onnx.py --model_name MODEL_NAME --export_dir EXPORT_ONNX_DIR --is_torchivision IS_TORCHVISION --ckpt_path CKPT_PATH --batch_size BATCH_SIZE --in_size IN_SIZE --num_classes NUM_CLASSES    
 ```
-In order to convert ResNet18 with ImageNet pretraning run:
+For instance, in order to convert ResNet18 with ImageNet pretraning run:
 ```
     python opti_models/convertations/cvt_onnx.py --model_name 'resnet18' --export_dir 'data/onnx_export' --is_torchivision True --batch_size 1 --in_size 224 224
 ```
-In order to convert you own ResNet18 torchvision model with custom weights run:
+For instance, In order to convert you own ResNet18 torchvision model with custom weights run:
 ```
     python opti_models/convertations/cvt_onnx.py --model_name 'resnet18' --export_dir 'data/onnx_export' --is_torchivision True --batch_size 1 --in_size 224 224 --ckpt_path CKPT_PATH --num_classes NUM_CLASSES
 ```
@@ -84,7 +84,7 @@ Change this to `model = GetCustomModel()`, and you're good to go. Note that it's
     python opti_models/convertations/cvt_tensorrt.py --onnx_path ONNX_MODEL_PATH --export_dir EXPORT_TRT_DIR --batch_size BATCH_SIZE--in_size IN_SIZE -fp_type PRECISION_TYPE    
 ```
 
-In order to convert the previously converted ResNet18 model to TRT run:
+For instance, in order to convert the previously converted ResNet18 model to TRT run:
 
 ```
     python opti_models/convertations/cvt_tensorrt.py --onnx_path data/onnx_export/resnet18/resnet18_bs-1_res-224x224_simplified.onnx --export_dir data/trt_export --batch_size 1 --in_size 224 224 --fp_type 32
