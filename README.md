@@ -1,21 +1,22 @@
 # opti_models
-## Description
 
 ## Install
-0. Make clean venv
-```
-python -m venv venv
-source venv/bin/activate
-```
-1. Install dev branch
+
+0. Clone the repo:
 ```
 git clone git@github.com:IlyaDobrynin/opti_models.git && cd opti_models
 git checkout dev
+```
+
+1. Create a clean virtual environment 
+```
+python3 -m venv venv
+source venv/bin/activate
+```
+2. Install dependencies
+````
 pip install --upgrade pip
 pip install .
-```
-2. Install tensorrt
-```
 pip install nvidia-pyindex
 pip install --upgrade nvidia-tensorrt
 ```
